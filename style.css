@@ -1,0 +1,64 @@
+:root{
+    --dark-color:#070F2B; 
+    --move-color:#1B1A55; 
+    --text-color:white;
+    --Light-color:#9290C3;
+}
+body{
+    background-color: var(--dark-color);
+    /* height: 100vh; */
+} 
+
+h1 , p {
+    color: var(--text-color);
+    text-align: center;
+    align-self: center;
+}
+.LVLs {
+    margin-top: 200px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.LVLs p{
+    background-color: var(--Light-color);
+    height: 100px;
+    align-content: center;
+    color: whitesmoke;
+    font-size: large;
+    font-weight : bold ;
+    cursor: pointer;
+}
+.quote {
+    color: var(--text-color);
+    text-align: center;
+    margin-top: 200px;
+    letter-spacing: 2px;
+    font-size: 25px;
+}
+
+
+
+@keyframes neon {
+
+    0%,
+        100% {
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 80px #00ff00, 0 0 120px #00ff00;
+        }
+    
+        50% {
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 80px #00ff00, 0 0 120px #00ff00, 0 0 160px #00ff00;
+        }
+}
+.quote span.correct {
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 80px #00ff00, 0 0 120px #00ff00;
+            animation: neon 1s  forwards;
+            -webkit-animation: neon 1s  forwards;
+}
+
+.quote span.incorrect {
+    color: red;
+}
