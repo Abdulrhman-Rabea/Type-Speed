@@ -7,22 +7,21 @@ let quoteText = '';
 const clickSound = document.getElementById('clickSound');
 const wrongSound = document.getElementById('WrongSound');
 const successfulTask = document.getElementById('successfulTask');
+
+let Executable = true;
 req.onreadystatechange = function () {
-    if (req.status == 200 && req.readyState == 4) {
+    if (req.status == 200 && req.readyState == 4 && Executable==true)  {
         let data = JSON.parse(req.responseText);
         quoteText = data.content;
         displayQuote(quoteText);
         processing()
         areAllSpansClassed()
-    } else {
-        console.log("bad req");
-    }
+    } 
 };
 
 function displayQuote(data) {
     let charIndex = 0;
     let charSpan = data.split("")
-    console.log(charSpan)
     charSpan.forEach(char => {
         let span = document.createElement(`span`)
         span.innerHTML = char
@@ -46,11 +45,8 @@ function processing() {
             quoteSpans[charIndex].className = "correct"; // Update the specific span
             charIndex++;
             clickSound.play();
-
             if (StartTime === null) {
                 StartTime = new Date
-                console.log("user started the task")
-                console.log(`start Time is ${StartTime.getMinutes()}`)
             }
             if (charIndex < quoteText.length) {
                 quoteChar = quoteText[charIndex]; // Update quoteChar for the next character
@@ -59,7 +55,12 @@ function processing() {
             wrongSound.play()
         }
     });
+    document.addEventListener("DOMContentLoaded", function () {
+        quoteElement.focus();
+    })
 }
+;
+
 //function check if all span have class "correct"
 function areAllSpansClassed() {
     document.addEventListener("keydown", function () {
@@ -67,10 +68,10 @@ function areAllSpansClassed() {
         let QuoteElementsInArr = Array.from(QuoteElements)
         let AllCorrect = QuoteElementsInArr.every(ele => ele.classList.contains(`correct`))
         if (AllCorrect) {
-            console.log("user finished the task")
             EndTime = new Date
-            console.log(`end Time is ${EndTime.getMinutes()}`)
             calcWPM()
+            // StopPress() 
+            console.log("all corrected task finished")
         }
     })
 
@@ -82,7 +83,6 @@ function calcWPM() {
     const numberOfWords = quoteText.split(" ").length;
     const WPM = Math.round(numberOfWords / adjustedTimeSpentInMinutes);
     successfulTask.play()
-    console.log(`Your speed is ${WPM} WPM`);
     Swal.fire({
         title: `Your speed is ${WPM} WPM`,
         width: 600,
@@ -97,3 +97,9 @@ function calcWPM() {
 `
     });
 }
+// function StopPress() {
+//     Executable = false;
+//     console.log(Executable)
+//     console.log("keyboard disabled")
+//     document.removeEventListener("keydown");
+// }

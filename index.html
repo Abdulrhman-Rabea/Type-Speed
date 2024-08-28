@@ -11,9 +11,14 @@
 
     <body>
         <div class="container">
-            <h1> Easy Mode </h1>
+            <h1> Typing speed </h1>
             <div class="quote">
             </div>
+        </div>
+        <div class="tryagainBtn">
+            <button class="TryAgain" onclick="window.navigation.reload()">
+                Try Again
+            </button>
         </div>
         <audio id="clickSound">
             <source src="./audios/clickUp.mp3" type="audio/mp3">
@@ -22,7 +27,8 @@
             <source src="./audios/wrong-buzzer-6268.mp3" type="audio/mp3">
         </audio>
         <audio id="successfulTask">
-            <source src="./audios/success-fanfare-trumpets-6185.mp3" type="audio/mp3">
+            <source src="./audios/success-fanfare-trumpets-6185.mp3"
+                type="audio/mp3">
         </audio>
         <script src="./script.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
