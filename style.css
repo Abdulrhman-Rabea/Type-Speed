@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 :root{
     --dark-color:#070F2B; 
     --move-color:#1B1A55; 
@@ -12,11 +19,15 @@ body{
 h1 , p {
     color: var(--text-color);
     text-align: center;
-    align-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
 }
 .LVLs {
     margin-top: 200px;
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 1fr 30px 1fr 30px 1fr;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     width: 90%;
@@ -26,7 +37,8 @@ h1 , p {
 .LVLs p{
     background-color: var(--Light-color);
     height: 100px;
-    align-content: center;
+    -ms-flex-line-pack: center;
+        align-content: center;
     color: whitesmoke;
     font-size: large;
     font-weight : bold ;
@@ -38,6 +50,20 @@ h1 , p {
     margin-top: 200px;
     letter-spacing: 2px;
     font-size: 25px;
+}
+
+
+
+@-webkit-keyframes neon {
+
+    0%,
+        100% {
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 80px #00ff00, 0 0 120px #00ff00;
+        }
+    
+        50% {
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 80px #00ff00, 0 0 120px #00ff00, 0 0 160px #00ff00;
+        }
 }
 
 
@@ -63,32 +89,52 @@ h1 , p {
     color: red;
 }
 .TryAgain{
-    --😀: #644dff;
-    --😀😀: #4836bb;
-    --😀😀😀: #654dff63;
-    cursor: pointer;
-    width: 184px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    font-size: 1.125em;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: #fff;
-    background: var(--😀);
-    border: 2px solid var(--😀😀);
-    border-radius: .75rem;
-    box-shadow: 0 8px 0 var(--😀😀);
-    transform: skew(-10deg);
-    transition: all .1s ease;
-    filter: drop-shadow(0 15px 20px var(--😀😀😀));
-    margin: 100px auto ; 
-        }
+            --😀: #644dff;
+            --😀😀: #4836bb;
+            --😀😀😀: #654dff63;
+            cursor: pointer;
+            width: 184px;
+            height: 48px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 1.125em;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #fff;
+            background: var(--😀);
+            border: 2px solid var(--😀😀);
+            border-radius: .75rem;
+            -webkit-box-shadow: 0 8px 0 var(--😀😀);
+            box-shadow: 0 8px 0 var(--😀😀);
+            -webkit-transform: skew(-10deg);
+            -ms-transform: skew(-10deg);
+            transform: skew(-10deg);
+            -webkit-transition: all .1s ease;
+            -o-transition: all .1s ease;
+            transition: all .1s ease;
+            -webkit-filter: drop-shadow(0 15px 20px var(--😀😀😀));
+            filter: drop-shadow(0 15px 20px var(--😀😀😀));
+            margin: 100px auto ;
+            -moz-transform: skew(-10deg);
+            -o-transform: skew(-10deg);
+}
     
 button:active {
     letter-spacing: 0px;
-    transform: skew(-10deg) translateY(8px);
-    box-shadow: 0 0 0 var(--😀😀😀);
+    -webkit-transform: skew(-10deg) translateY(8px);
+        -ms-transform: skew(-10deg) translateY(8px);
+            transform: skew(-10deg) translateY(8px);
+    -webkit-box-shadow: 0 0 0 var(--😀😀😀);
+            box-shadow: 0 0 0 var(--😀😀😀);
     }
+input#hidden_btn {
+            opacity:0;
+}

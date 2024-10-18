@@ -1,26 +1,33 @@
+// connect to API and send request
 let req = new XMLHttpRequest();
-req.open('GET', 'https://api.quotable.io/random/', true);
+req.open('GET', 'https://api.api-ninjas.com/v1/quotes', true);
+req.setRequestHeader('X-Api-Key', 'IwWp/GqgIUNfrp9px5dISg==c8eQoxk9tXerBeOu');
 req.send();
 
+
+let container = document.querySelector(`.container`)
 let quoteElement = document.querySelector(".quote");
 let quoteText = '';
+let HiddenBTN = document.querySelector(`.first`)
+
 const clickSound = document.getElementById('clickSound');
 const wrongSound = document.getElementById('WrongSound');
+
 const successfulTask = document.getElementById('successfulTask');
 
-let Executable = true;
+let StartTime = null;
+let EndTime = null;
+
 req.onreadystatechange = function () {
-    if (req.status == 200 && req.readyState == 4 && Executable==true)  {
+    if (req.status == 200 && req.readyState == 4) {
         let data = JSON.parse(req.responseText);
-        quoteText = data.content;
+        quoteText = data[0].quote;
         displayQuote(quoteText);
         processing()
-        areAllSpansClassed()
-    } 
+    }
 };
 
 function displayQuote(data) {
-    let charIndex = 0;
     let charSpan = data.split("")
     charSpan.forEach(char => {
         let span = document.createElement(`span`)
@@ -31,20 +38,20 @@ function displayQuote(data) {
 }
 
 
-let StartTime = null;
-let EndTime;
+
 function processing() {
     let charIndex = 0;
     let UserChar;
     let quoteChar = quoteText[charIndex];
     const quoteSpans = document.querySelectorAll(".quote span");
-
-    document.addEventListener("keydown", function (eve) {
-        UserChar = eve.key;
+    //  keyboard handling
+    HiddenBTN.addEventListener(`input`, function () {
+        UserChar = HiddenBTN.value;
         if (UserChar.toLowerCase() === quoteChar.toLowerCase()) {
-            quoteSpans[charIndex].className = "correct"; // Update the specific span
-            charIndex++;
             clickSound.play();
+            quoteSpans[charIndex].className = "correct"; // Update the specific span
+            HiddenBTN.value = ""
+            charIndex++;
             if (StartTime === null) {
                 StartTime = new Date
             }
@@ -53,32 +60,29 @@ function processing() {
             }
         } else {
             wrongSound.play()
+            HiddenBTN.value = ""
         }
     });
-    document.addEventListener("DOMContentLoaded", function () {
-        quoteElement.focus();
-    })
+    
+    areAllSpansClassed()
 }
-;
-
 //function check if all span have class "correct"
 function areAllSpansClassed() {
-    document.addEventListener("keydown", function () {
+    document.addEventListener("input", function () {
         let QuoteElements = document.querySelectorAll(`span`)
         let QuoteElementsInArr = Array.from(QuoteElements)
         let AllCorrect = QuoteElementsInArr.every(ele => ele.classList.contains(`correct`))
         if (AllCorrect) {
             EndTime = new Date
-            calcWPM()
-            // StopPress() 
             console.log("all corrected task finished")
+            calcWPM()
         }
     })
 
 }
 
 function calcWPM() {
-    const timeSpentInMinutes = (EndTime - StartTime) / 60000;
+    const timeSpentInMinutes = (EndTime.getMinutes() - StartTime.getMinutes())  ;
     const adjustedTimeSpentInMinutes = Math.max(timeSpentInMinutes, 0.01); // Ensure a minimum time of 0.01 minutes to avoid zero
     const numberOfWords = quoteText.split(" ").length;
     const WPM = Math.round(numberOfWords / adjustedTimeSpentInMinutes);
@@ -97,9 +101,9 @@ function calcWPM() {
 `
     });
 }
-// function StopPress() {
-//     Executable = false;
-//     console.log(Executable)
-//     console.log("keyboard disabled")
-//     document.removeEventListener("keydown");
-// }
+
+container.onclick = function () {
+    HiddenBTN.focus()
+}
+
+window.onload=function (){container.focus()}
